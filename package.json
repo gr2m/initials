@@ -1,6 +1,6 @@
 {
   "name": "initials",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
