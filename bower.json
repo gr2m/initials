@@ -1,0 +1,23 @@
+{
+  "name": "initials",
+  "version": "0.0.0",
+  "authors": [
+    "Gregor Martynus <gregor@martynus.net>"
+  ],
+  "description": "initials for names",
+  "main": "initials.js",
+  "keywords": [],
+  "license": "MIT",
+  "homepage": "http://gr2m.github.io/initials.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap-editable-table": "~0.1.0"
+  },
+  "dependencies": {}
+}

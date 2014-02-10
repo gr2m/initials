@@ -1,0 +1,19 @@
+{
+  "name": "initials",
+  "version": "0.0.0",
+  "description": "initials for names",
+  "main": "initials.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gr2m/initials.js"
+  },
+  "author": "Gregor Martynus <gregor@martynus.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gr2m/initials.js/issues"
+  },
+  "homepage": "http://gr2m.github.io/initials.js",
+}
