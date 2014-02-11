@@ -4,7 +4,7 @@
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/gr2m/initials.js/issues"
   },
-  "homepage": "http://gr2m.github.io/initials.js"
+  "homepage": "http://gr2m.github.io/initials.js",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-qunit": "~0.4.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
 }
