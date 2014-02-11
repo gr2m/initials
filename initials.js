@@ -12,7 +12,7 @@
   } else {
     root.initials = factory();
   }
-})(this, function(global){
+})(this, function(){  // jshint ignore:line
   var uppercaseLettersOnlyPattern = /^[A-Z]+$/;
   var initialsInNamePattern = /\(([^\)]+)\)/;
   var nameIsEmailPattern = /^[^\s]+@[^\s]+$/;
