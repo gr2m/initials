@@ -23,9 +23,50 @@ Usage
 -----
 
 ```js
-console.log( initials('Joe Doe') );
+console.log( initials('John Doe') );
+// 'JD'
+
+console.log( initials(['John Doe', 'Robert Roe']) );
+// ['JD', 'RR']
+```
+
+Notes
+-----
+
+Preffered initials can be passed in `(JD)`, e.g.
+
+```js
+console.log( initials('John Doe (JoDo)') );
+// 'JoDo'
+```
+
+If a name contains an email, it gets ignored when calculating initials
+
+```js
+console.log( initials('John Doe joe@example.com') );
 // 'JD'
 ```
+
+If a name _is_ an email, the domain part gets ignored
+
+```js
+console.log( initials('joe@example.com') );
+// 'jo'
+```
+
+When passing an Array of names, doublicates of initials are avoided
+
+```js
+console.log( initials(['John Doe', 'Jane Dane']) );
+// ['JDo', 'JDa']
+```
+
+Todo
+----
+
+I'd say the implementations is robust, but has room for
+performance optimizations. Pull requests welcome!
+
 
 Fine Print
 ----------

@@ -13,23 +13,101 @@
     root.initials = factory();
   }
 })(this, function(){  // jshint ignore:line
+
   var uppercaseLettersOnlyPattern = /^[A-Z]+$/;
   var initialsInNamePattern = /\(([^\)]+)\)/;
   var nameIsEmailPattern = /^[^\s]+@[^\s]+$/;
   var findDomainInEmailPattern = /@[^\s]+/;
   var findEmailPattern = /[^\s]+@[^\s]+/g;
-  var findFirstLettersPattern = /\b\w/g;
-  var findFirst2LettersPattern = /\w{2}/;
-
+  var findFirstLettersOfWordsPattern = /\b\w/g;
+  var findAllNonCharactersPattern = /[^\w]+/g;
 
   //
-  // Find initials in a given name
+  // initials alows to be used with either a string or an array of strings
   //
-  function initials(name) {
+  function initials(nameOrNames, length) {
+    if (! nameOrNames) return '';
+    if (typeof nameOrNames === 'string') return initialsForSingleName(nameOrNames, length);
+    return initialsForMultipleNames(nameOrNames, length);
+  }
+
+  //
+  // Find initials in a single given name string
+  //
+  function initialsForSingleName(name, length) {
     var matches;
+    var result;
+    var findFirstLettersPattern;
+    var initials;
+    length = length || 2;
+    findFirstLettersPattern = new RegExp('\\w{'+length+'}');
 
     if (! name) return '';
 
+    initials = findPreferredInitials(name);
+    if (initials) return initials;
+
+    name = cleanupName(name);
+
+    // remove diacritics, as they screw up the /\b/ pattern
+    name = removeDiacritics(name);
+    matches = name.match(findFirstLettersOfWordsPattern);
+
+    if (matches.length < 2) {
+      if (name.length > length) {
+        return name.match(findFirstLettersPattern);
+      } else {
+        return name;
+      }
+    } else {
+      result = matches.join('');
+    }
+
+    if (result.length >= length) {
+      return result;
+    }
+
+    // This is where it gets complicated.
+    // Let's say we're in initials('John Doe', 3), so up to here
+    // we have `result === 'JD'`, but what we want is `result === `JDo`.
+
+    // First, we calculate all remaining options that we have
+    var options = getPossibleInitialsForName(name);
+    var option;
+
+    // then we return the first option that has the required length
+    while (option = options.shift()) {  // jshint ignore:line
+      if (option.length >= length) return option;
+    }
+
+    // if that didn't work, we return the last possible option
+    return option;
+  }
+
+  //
+  //
+  //
+  function cleanupName (name) {
+    // in case the name is an email address, remove the @xx.yy part
+    // otherwise remove an eventual email address from name
+    if (nameIsEmailPattern.test(name)) {
+      name = name.replace(findDomainInEmailPattern, '');
+    } else {
+      name = name.replace(findEmailPattern, '');
+    }
+
+    // replace all non characters with ' ' & trim
+    name = name.replace(findAllNonCharactersPattern, ' ').trim();
+
+    return name;
+  }
+
+
+  //
+  //
+  //
+  function findPreferredInitials (name) {
+    var matches;
     // if the name contains only upcase letters, let's take it as the initials as well
     if (uppercaseLettersOnlyPattern.test(name)) {
       return name;
@@ -42,28 +120,147 @@
     if (matches != null) {
       return matches.pop();
     }
+  }
 
-    // in case the name is an email address, remove the @xx.yy part
-    // otherwise remove an eventual email address from name
-    if (nameIsEmailPattern.test(name)) {
-      name = name.replace(findDomainInEmailPattern, '');
-    } else {
-      name = name.replace(findEmailPattern, '');
+  //
+  // e.g. for John Doe:
+  // - JDo
+  // - JDoe
+  // - JoDoe
+  // - JohDoe
+  // - JohnDoe
+  //
+  var cache = {};
+  function getPossibleInitialsForName (name) {
+    var parts;
+    var partsPossibilities;
+    var options = [];
+    var currentParts;
+
+    name = cleanupName(name);
+
+    if (cache[name]) {
+      return cache[name].slice(0); // return copy
     }
 
-    // remove diacritics, as they screw up the /\b/ pattern
-    name = removeDiacritics(name);
-    matches = name.match(findFirstLettersPattern);
+    // split names into parts
+    // 'John Doe' => ['Doe', 'John']
+    parts = name.split(' ');
+    currentParts = parts;
 
-    if (matches.length < 2) {
-      if (name.length > 2) {
-        return name.match(findFirst2LettersPattern);
-      } else {
-        return name;
+    // map parts to all its possible initials
+    // 'John' => ['J', 'Jo', 'Joh', 'John']
+    partsPossibilities = parts.map(getPossibleInitialsForWord);
+
+    options = combineAll(partsPossibilities);
+
+    // sort options, shortest first
+    options = options.sort(function(a, b) {
+      return a.length - b.length;
+    });
+
+    // cache for future
+    cache[name] = options;
+
+    // return options;
+    return options.slice(0);
+  }
+
+  //
+  //
+  //
+  function combineAll(array) {
+    var current = array.shift();
+    var temp;
+    var results;
+    if(array.length > 0) {
+      results = [];
+      temp = combineAll(array);
+      current.forEach(function(value1) {
+        temp.forEach(function(value2) {
+          results.push(value1 + value2);
+        });
+      });
+      return results;
+    }
+    else {
+      return current;
+    }
+  }
+
+  //
+  //
+  //
+  function getPossibleInitialsForWord (word) {
+    var options = [];
+    while (word.length) {
+      options.unshift(word);
+      word = word.substr(0, word.length - 1);
+    }
+    return options;
+  }
+
+  //
+  // inspired by http://www.perlmonks.org/bare/?abspart=1;displaytype=displaycode;node_id=336125;part=6
+  //
+  function initialsForMultipleNames (names, length) {
+    length = length || 2;
+    var optionsForNames = [];
+    var optionsCountForNames;
+    var map = {};
+    var duplicatesMap = {};
+    var initialsForNamesMap = {};
+    var options;
+    var initials;
+    var namesLengths;
+
+    // make sure we still have options for every name
+    namesLengths = names.map( function(name) { return name.length; });
+
+    // get all possible initials for all names for given length
+    names.forEach(function(name) {
+
+
+      if (initialsForNamesMap[name]) return;
+
+      initials = findPreferredInitials(name);
+      if (initials) {
+        map[initials] = 1;
+        initialsForNamesMap[name] = [initials];
+        return;
       }
-    } else {
-      return matches.join('');
+
+      // return all possible initials for given length
+      options = getPossibleInitialsForName(name).filter( function(initials) {
+        if (initials.length !== length) return false;
+        if (map[initials]) duplicatesMap[initials] = 1;
+        map[initials] = 1;
+        return true;
+      });
+
+      initialsForNamesMap[name] = options;
+    });
+
+    // remove duplicates
+    for (var name in initialsForNamesMap) {
+      options = initialsForNamesMap[name];
+      optionsForNames.push(options);
+
+      for (var j = 0; j < options.length; j++) {
+        if (duplicatesMap[options[j]]) {
+          options.splice(j, 1);
+        }
+      }
     }
+
+    // make sure we still have options for every name
+    optionsCountForNames = optionsForNames.map( function(options) { return options.length; });
+    if (Math.min.apply(null, optionsCountForNames) === 0) {
+      return initialsForMultipleNames(names, length + 1);
+    }
+
+    // if we do, return the first option for each
+    return names.map( function(name) { return initialsForNamesMap[name][0]; });
   }
 
   // based on http://web.archive.org/web/20120918093154/http://lehelk.com/2011/05/06/script-to-remove-diacritics/

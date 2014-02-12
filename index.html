@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>initials.js – Because JD is shorter than Joe Doe</title>
+  <title>initials.js – Because JD is shorter than John Doe</title>
 
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-editable-table/bootstrap-editable-table.css">
@@ -28,12 +28,15 @@
   </header>
 
   <div class="main">
-    <h3>Initials. Because JD is shorter than Joe Doe</h3>
+    <h3>Initials. Because JD is shorter than John Doe</h3>
     <p>
       Right?
     </p>
-    <pre>initials('Joe Doe');
-// > 'JD'</pre>
+    <pre>initials('John Doe');
+// > 'JD'
+
+initials(['John Doe', 'Jane Dane']);
+// > ['JDo', 'JDa']</pre>
     <table data-editable data-editable-spy class="table">
       <thead>
         <tr>
@@ -66,16 +69,18 @@
   $(document.body).on('input', 'input', function(event) {
     var $row = $(event.target).closest('tr');
     var name = event.target.value;
-    $row.find('[name=initials]').text( initials(name) );
+    $row.find('[name=initials]').text( initials(name.split(/\s*[,;]\s*/)).join(', ') );
   });
 
   var $table = $('table');
   var names = [
-    'Joe Doe',
+    'John Doe',
     'joe doe',
-    'Joe Doe <joe@example.com>',
+    'John Doe <joe@example.com>',
     'joe@example.com',
-    'Joe Doe (dj)'
+    'John Doe (dj)',
+    'John Doe, Robert Roe, Larry Loe',
+    'John Doe, Jane Dane',
   ]
   $table.editableTable('add', names.map(function(name) { return {name: name} }));
   $table.find('tbody tr:not(:last-child) input').trigger('input');
