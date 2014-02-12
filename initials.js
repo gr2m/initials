@@ -87,6 +87,63 @@
   //
   //
   //
+  function initialsForMultipleNames (names, length) {
+    length = length || 2;
+    var optionsForNames = [];
+    var optionsCountForNames;
+    var map = {};
+    var duplicatesMap = {};
+    var initialsForNamesMap = {};
+    var options;
+    var initials;
+
+    // get all possible initials for all names for given length
+    names.forEach(function(name) {
+      if (initialsForNamesMap[name]) return;
+
+      initials = findPreferredInitials(name);
+      if (initials) {
+        map[initials] = 1;
+        initialsForNamesMap[name] = [initials];
+        return;
+      }
+
+      // return all possible initials for given length
+      options = getPossibleInitialsForName(name).filter( function(initials) {
+        if (initials.length !== length) return false;
+        if (map[initials]) duplicatesMap[initials] = 1;
+        map[initials] = 1;
+        return true;
+      });
+
+      initialsForNamesMap[name] = options;
+    });
+
+    // remove duplicates
+    for (var name in initialsForNamesMap) {
+      options = initialsForNamesMap[name];
+      optionsForNames.push(options);
+
+      for (var j = 0; j < options.length; j++) {
+        if (duplicatesMap[options[j]]) {
+          options.splice(j, 1);
+        }
+      }
+    }
+
+    // make sure we still have options for every name
+    optionsCountForNames = optionsForNames.map( function(options) { return options.length; });
+    if (Math.min.apply(null, optionsCountForNames) === 0) {
+      return initialsForMultipleNames(names, length + 1);
+    }
+
+    // if we do, return the first option for each
+    return names.map( function(name) { return initialsForNamesMap[name][0]; });
+  }
+
+  //
+  //
+  //
   function cleanupName (name) {
     // in case the name is an email address, remove the @xx.yy part
     // otherwise remove an eventual email address from name
@@ -198,69 +255,6 @@
       word = word.substr(0, word.length - 1);
     }
     return options;
-  }
-
-  //
-  // inspired by http://www.perlmonks.org/bare/?abspart=1;displaytype=displaycode;node_id=336125;part=6
-  //
-  function initialsForMultipleNames (names, length) {
-    length = length || 2;
-    var optionsForNames = [];
-    var optionsCountForNames;
-    var map = {};
-    var duplicatesMap = {};
-    var initialsForNamesMap = {};
-    var options;
-    var initials;
-    var namesLengths;
-
-    // make sure we still have options for every name
-    namesLengths = names.map( function(name) { return name.length; });
-
-    // get all possible initials for all names for given length
-    names.forEach(function(name) {
-
-
-      if (initialsForNamesMap[name]) return;
-
-      initials = findPreferredInitials(name);
-      if (initials) {
-        map[initials] = 1;
-        initialsForNamesMap[name] = [initials];
-        return;
-      }
-
-      // return all possible initials for given length
-      options = getPossibleInitialsForName(name).filter( function(initials) {
-        if (initials.length !== length) return false;
-        if (map[initials]) duplicatesMap[initials] = 1;
-        map[initials] = 1;
-        return true;
-      });
-
-      initialsForNamesMap[name] = options;
-    });
-
-    // remove duplicates
-    for (var name in initialsForNamesMap) {
-      options = initialsForNamesMap[name];
-      optionsForNames.push(options);
-
-      for (var j = 0; j < options.length; j++) {
-        if (duplicatesMap[options[j]]) {
-          options.splice(j, 1);
-        }
-      }
-    }
-
-    // make sure we still have options for every name
-    optionsCountForNames = optionsForNames.map( function(options) { return options.length; });
-    if (Math.min.apply(null, optionsCountForNames) === 0) {
-      return initialsForMultipleNames(names, length + 1);
-    }
-
-    // if we do, return the first option for each
-    return names.map( function(name) { return initialsForNamesMap[name][0]; });
   }
 
   // based on http://web.archive.org/web/20120918093154/http://lehelk.com/2011/05/06/script-to-remove-diacritics/
