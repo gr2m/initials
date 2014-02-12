@@ -31,4 +31,9 @@ test( 'initials( namesArray )', function() {
 
   deepEqual( initials(['John Doe <joe@example.com>']), ['JD'], 'emails are ignored in arrays' );
   deepEqual( initials(['joe@example.com']), ['jo'], 'domains are ignored when a name is an email' );
+
+  deepEqual( initials(['joe@example.com']), ['jo'], 'domains are ignored when a name is an email' );
+
+  // https://github.com/gr2m/initials.js/issues/1
+  deepEqual( initials(['j']), ['j'], 'j ☛ j');
 });
