@@ -1,5 +1,5 @@
-Initials. Because JD is shorter than JD
-=======================================
+Initials. Because JD is shorter than John Doe
+=============================================
 
 > a JavaScript function to get initials from names
 
