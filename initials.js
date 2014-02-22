@@ -22,6 +22,8 @@
   var findFirstLettersOfWordsPattern = /\b\w/g;
   var findAllNonCharactersPattern = /[^\w]+/g;
 
+  // PUBLIC API METHODS
+
   //
   // initials alows to be used with either a string or an array of strings
   //
@@ -30,6 +32,26 @@
     if (typeof nameOrNames === 'string') return initialsForSingleName(nameOrNames, length);
     return initialsForMultipleNames(nameOrNames, length);
   }
+
+  //
+  // finds initials in a name and adds them right ot them
+  //
+  function addInitialsTo (nameOrNames, length) {
+    if (! nameOrNames) return '';
+    if (typeof nameOrNames === 'string') return addInitialsToSingleName(nameOrNames, length);
+    return addInitialsToMultipleNames(nameOrNames, length);
+  }
+
+  //
+  // extract name, initials, email
+  //
+  function parse (nameOrNames, options) {
+    if (! nameOrNames) return {};
+    if (typeof nameOrNames === 'string') return parseSingleName(nameOrNames, options);
+    return parseMultipleNames(nameOrNames, options);
+  }
+
+  // HELPER METHODS
 
   //
   // Find initials in a single given name string
@@ -55,7 +77,7 @@
 
     if (matches.length < 2) {
       if (name.length > length) {
-        return name.match(findFirstLettersPattern);
+        return name.match(findFirstLettersPattern).join('');
       } else {
         return name;
       }
@@ -139,6 +161,97 @@
 
     // if we do, return the first option for each
     return names.map( function(name) { return initialsForNamesMap[name][0]; });
+  }
+
+  //
+  //
+  //
+  function addInitialsToSingleName (name, length) {
+    var parts = parseSingleName(name, length);
+    return format(parts);
+  }
+
+  //
+  //
+  //
+  function addInitialsToMultipleNames (names, length) {
+    return parseMultipleNames(names, length).map( format );
+  }
+
+  //
+  //
+  //
+  function parseSingleName (name, options) {
+    var initials;
+    var email;
+    var matches;
+    var parts = {};
+
+    // normalize options
+    if (! options) options = {};
+    if (typeof options === 'number') options = {length: options};
+
+    // are initials part of the name?
+    initials = findPreferredInitials(name);
+    if (initials) {
+      // if yes, remove it from name
+      name = name.replace(initials, '');
+    }
+
+    // use preferred initials if passed
+    if (options.initials) initials = options.initials;
+
+    // if no initials found yet, extract initials from name
+    if (!initials) initials = initialsForSingleName(name, options.length);
+
+    // is there an email in the name?
+    matches = name.match(findEmailPattern);
+    if (matches != null) email = matches.pop();
+    if (email) {
+      // if yes, remove it from name
+      name = name.replace(email, '');
+    }
+
+    // clean up the remainings
+    name = name.replace(findAllNonCharactersPattern, ' ').trim();
+
+    // do only return what's present
+    if (name) parts.name = name;
+    if (initials) parts.initials = initials;
+    if (email) parts.email = email;
+
+    return parts;
+  }
+
+  //
+  //
+  //
+  function parseMultipleNames (names) {
+    var initialsArray = initialsForMultipleNames(names, length);
+
+    return names.map(function(name, i) {
+      return parseSingleName(name, {
+        initials: initialsArray[i]
+      });
+    });
+  }
+
+  //
+  //
+  //
+  function format (parts) {
+
+    // neither name nor email: return initials
+    if (! parts.name && ! parts.email) return parts.initials;
+
+    // no email: return name with initials
+    if (! parts.email) return parts.name + ' (' + parts.initials + ')';
+
+    // no name: return email with initials
+    if (! parts.name) return parts.email + ' (' + parts.initials + ')';
+
+    // return name with initials & name
+    return parts.name + ' (' + parts.initials + ') <' + parts.email + '>';
   }
 
   //
@@ -350,5 +463,11 @@
     }
     return str;
   }
+
+  // extend public API
+  initials.addTo = addInitialsTo;
+  initials.parse = parse;
+  initials.find = initials;
+
   return initials;
 });

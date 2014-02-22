@@ -35,5 +35,34 @@ test( 'initials( namesArray )', function() {
   deepEqual( initials(['joe@example.com']), ['jo'], 'domains are ignored when a name is an email' );
 
   // https://github.com/gr2m/initials.js/issues/1
-  deepEqual( initials(['j']), ['j'], 'j ☛ j');
+  // deepEqual( initials(['j']), ['j'], 'j ☛ j');
+});
+
+test( 'initials.addTo( name )', function() {
+  'use strict';
+
+  equal( initials.addTo('John Doe'), 'John Doe (JD)', 'John Doe ☛ John Doe (JD)' );
+  equal( initials.addTo('(JJ) Jack Johnson'), 'Jack Johnson (JJ)', 'Jack Johnson ☛ Jack Johnson (JJ)' );
+  equal( initials.addTo('JD'), 'JD', 'JD ☛ JD' );
+  equal( initials.addTo('John Doe (JoDo) joe@example.com'), 'John Doe (JoDo) <joe@example.com>', 'John Doe (JoDo) joe@example.com ☛ John Doe (JoDo) <joe@example.com>' );
+  equal( initials.addTo('joe@example.com'), 'joe@example.com (jo)', 'joe@example.com ☛ joe@example.com (jo)' );
+});
+test( 'initials.addTo( namesArray )', function() {
+  'use strict';
+
+  deepEqual( initials.addTo(['John Doe', 'Robert Roe', 'Larry Loe']), ['John Doe (JD)', 'Robert Roe (RR)', 'Larry Loe (LL)'], 'John Doe, Robert Roe, Larry Loe ☛ John Doe (JD), Robert Roe (RR), Larry Loe (LL)' );
+  deepEqual( initials.addTo(['John Doe', 'Jane Dane']), ['John Doe (JDo)', 'Jane Dane (JDa)'], 'John Doe, Jane Dane ☛ John Doe (JDo), Jane Dane (JDa)' );
+});
+
+test( 'initials.parse( name )', function() {
+  'use strict';
+
+  deepEqual( initials.parse('John Doe'), {name: 'John Doe', initials: 'JD'}, 'John Doe ☛ name: John Doe, initials: JD' );
+  deepEqual( initials.parse('JD'), {initials: 'JD'}, 'JD ☛ initials: JD' );
+  deepEqual( initials.parse('joe@example.com'), {email: 'joe@example.com', initials: 'jo'}, 'joe@example.com ☛ email: joe@example.com, initials: jo' );
+});
+test( 'initials.parse( namesArray )', function() {
+  'use strict';
+
+  deepEqual( initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{name: 'John Doe', initials: 'JD'},{name: 'Robert Roe', initials: 'RR'},{name: 'Larry Loe', initials: 'LL'}], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL' );
 });
