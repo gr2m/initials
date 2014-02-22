@@ -28,6 +28,17 @@ console.log( initials('John Doe') );
 
 console.log( initials(['John Doe', 'Robert Roe']) );
 // ['JD', 'RR']
+
+// alias
+initials.find('John Doe')
+
+// parse name(s)
+initials.parse('John Doe')
+// {name: 'John Doe', initials: 'JD'}
+
+// add initials to name(s)
+initials.addTo('John Doe')
+// 'John Doe (JD)'
 ```
 
 Notes
