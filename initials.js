@@ -18,7 +18,7 @@
   var initialsInNamePattern = /\(([^\)]+)\)/;
   var nameIsEmailPattern = /^[^\s]+@[^\s]+$/;
   var findDomainInEmailPattern = /@[^\s]+/;
-  var findEmailPattern = /[\w\._-]+@[\w\.-]+/g;
+  var findEmailPattern = /[\w\._-]+@[\w\.-]+[\w]/g;
   var findFirstLettersOfWordsPattern = /\b\w/g;
   var findAllNonCharactersPattern = /[^\w]+/g;
 
