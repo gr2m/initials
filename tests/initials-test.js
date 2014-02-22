@@ -60,6 +60,7 @@ test( 'initials.parse( name )', function() {
   deepEqual( initials.parse('John Doe'), {name: 'John Doe', initials: 'JD'}, 'John Doe ☛ name: John Doe, initials: JD' );
   deepEqual( initials.parse('JD'), {initials: 'JD'}, 'JD ☛ initials: JD' );
   deepEqual( initials.parse('joe@example.com'), {email: 'joe@example.com', initials: 'jo'}, 'joe@example.com ☛ email: joe@example.com, initials: jo' );
+  deepEqual( initials.parse('John Doe <joe@example.com>'), {name: 'John Doe', initials: 'JD', email: 'joe@example.com'}, 'joe@example.com ☛ email: joe@example.com, initials: jo' );
 });
 test( 'initials.parse( namesArray )', function() {
   'use strict';
