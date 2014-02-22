@@ -1,6 +1,6 @@
 {
   "name": "initials",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-qunit": "~0.4.0",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-bump": "0.0.13"
   }
 }
