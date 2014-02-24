@@ -23,13 +23,13 @@ Usage
 -----
 
 ```js
-console.log( initials('John Doe') );
+initials('John Doe')
 // 'JD'
 
-console.log( initials(['John Doe', 'Robert Roe']) );
+initials(['John Doe', 'Robert Roe'])
 // ['JD', 'RR']
 
-// alias
+// alias for initials('John Doe')
 initials.find('John Doe')
 
 // parse name(s)
@@ -39,6 +39,12 @@ initials.parse('John Doe')
 // add initials to name(s)
 initials.addTo('John Doe')
 // 'John Doe (JD)'
+
+// pass existing initials for names
+initials(['John Doe', 'Jane Dane'], {
+  existing: { 'John Doe': 'JD' }
+})
+// ['JD', 'JDa']
 ```
 
 Notes

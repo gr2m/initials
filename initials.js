@@ -14,6 +14,10 @@
   }
 })(this, function(){  // jshint ignore:line
 
+  // defaults
+  var defaultLength = 2;
+
+  // regex patterns
   var uppercaseLettersOnlyPattern = /^[A-Z]+$/;
   var initialsInNamePattern = /\(([^\)]+)\)/;
   var nameIsEmailPattern = /^[^\s]+@[^\s]+$/;
@@ -27,19 +31,19 @@
   //
   // initials alows to be used with either a string or an array of strings
   //
-  function initials(nameOrNames, length) {
+  function initials(nameOrNames, options) {
     if (! nameOrNames) return '';
-    if (typeof nameOrNames === 'string') return initialsForSingleName(nameOrNames, length);
-    return initialsForMultipleNames(nameOrNames, length);
+    if (typeof nameOrNames === 'string') return initialsForSingleName(nameOrNames, normalize(options));
+    return initialsForMultipleNames(nameOrNames, normalize(options));
   }
 
   //
   // finds initials in a name and adds them right ot them
   //
-  function addInitialsTo (nameOrNames, length) {
+  function addInitialsTo (nameOrNames, options) {
     if (! nameOrNames) return '';
-    if (typeof nameOrNames === 'string') return addInitialsToSingleName(nameOrNames, length);
-    return addInitialsToMultipleNames(nameOrNames, length);
+    if (typeof nameOrNames === 'string') return addInitialsToSingleName(nameOrNames, normalize(options));
+    return addInitialsToMultipleNames(nameOrNames, normalize(options));
   }
 
   //
@@ -47,8 +51,8 @@
   //
   function parse (nameOrNames, options) {
     if (! nameOrNames) return {};
-    if (typeof nameOrNames === 'string') return parseSingleName(nameOrNames, options);
-    return parseMultipleNames(nameOrNames, options);
+    if (typeof nameOrNames === 'string') return parseSingleName(nameOrNames, normalize(options));
+    return parseMultipleNames(nameOrNames, normalize(options));
   }
 
   // HELPER METHODS
@@ -56,17 +60,17 @@
   //
   // Find initials in a single given name string
   //
-  function initialsForSingleName(name, length) {
+  function initialsForSingleName(name, options) {
     var matches;
     var result;
     var findFirstLettersPattern;
     var initials;
-    length = length || 2;
+    var length = options.length || 2;
     findFirstLettersPattern = new RegExp('\\w{'+length+'}');
 
     if (! name) return '';
 
-    initials = findPreferredInitials(name);
+    initials = findPreferredInitials(name, options);
     if (initials) return initials;
 
     name = cleanupName(name);
@@ -94,11 +98,11 @@
     // we have `result === 'JD'`, but what we want is `result === `JDo`.
 
     // First, we calculate all remaining options that we have
-    var options = getPossibleInitialsForName(name);
+    var possibleInitials = getPossibleInitialsForName(name);
     var option;
 
     // then we return the first option that has the required length
-    while (option = options.shift()) {  // jshint ignore:line
+    while (option = possibleInitials.shift()) {  // jshint ignore:line
       if (option.length >= length) return option;
     }
 
@@ -109,21 +113,22 @@
   //
   //
   //
-  function initialsForMultipleNames (names, length) {
-    length = length || 2;
+  function initialsForMultipleNames (names, options) {
     var optionsForNames = [];
     var optionsCountForNames;
     var map = {};
     var duplicatesMap = {};
     var initialsForNamesMap = {};
-    var options;
     var initials;
+    var possibleInitials;
+    var length = options.length || 2;
 
     // get all possible initials for all names for given length
     names.forEach(function(name) {
+      if (! name) return '';
       if (initialsForNamesMap[name]) return;
 
-      initials = findPreferredInitials(name);
+      initials = findPreferredInitials(name, options);
       if (initials) {
         map[initials] = 1;
         initialsForNamesMap[name] = [initials];
@@ -131,32 +136,37 @@
       }
 
       // return all possible initials for given length
-      options = getPossibleInitialsForName(name).filter( function(initials) {
+      possibleInitials = getPossibleInitialsForName(name).filter( function(initials) {
         if (initials.length !== length) return false;
         if (map[initials]) duplicatesMap[initials] = 1;
         map[initials] = 1;
         return true;
       });
 
-      initialsForNamesMap[name] = options;
+      initialsForNamesMap[name] = possibleInitials;
     });
 
     // remove duplicates
     for (var name in initialsForNamesMap) {
-      options = initialsForNamesMap[name];
-      optionsForNames.push(options);
+      possibleInitials = initialsForNamesMap[name];
+      optionsForNames.push(possibleInitials);
 
-      for (var j = 0; j < options.length; j++) {
-        if (duplicatesMap[options[j]]) {
-          options.splice(j, 1);
+      for (var i = 0; i < possibleInitials.length; i++) {
+        if (duplicatesMap[possibleInitials[i]]) {
+          possibleInitials.splice(i, 1);
         }
       }
     }
 
     // make sure we still have options for every name
     optionsCountForNames = optionsForNames.map( function(options) { return options.length; });
+
+    // if names were empty, optionsCountForNames is empty. In that case stop here
+    if (optionsCountForNames.length === 0) return names;
+
     if (Math.min.apply(null, optionsCountForNames) === 0) {
-      return initialsForMultipleNames(names, length + 1);
+      options.length++;
+      return initialsForMultipleNames(names, options);
     }
 
     // if we do, return the first option for each
@@ -166,16 +176,16 @@
   //
   //
   //
-  function addInitialsToSingleName (name, length) {
-    var parts = parseSingleName(name, length);
+  function addInitialsToSingleName (name, options) {
+    var parts = parseSingleName(name, options);
     return format(parts);
   }
 
   //
   //
   //
-  function addInitialsToMultipleNames (names, length) {
-    return parseMultipleNames(names, length).map( format );
+  function addInitialsToMultipleNames (names, options) {
+    return parseMultipleNames(names, options).map( format );
   }
 
   //
@@ -187,12 +197,10 @@
     var matches;
     var parts = {};
 
-    // normalize options
-    if (! options) options = {};
-    if (typeof options === 'number') options = {length: options};
+    if (! name) return {};
 
     // are initials part of the name?
-    initials = findPreferredInitials(name);
+    initials = findPreferredInitials(name, options);
     if (initials) {
       // if yes, remove it from name
       name = name.replace(initials, '');
@@ -202,7 +210,7 @@
     if (options.initials) initials = options.initials;
 
     // if no initials found yet, extract initials from name
-    if (!initials) initials = initialsForSingleName(name, options.length);
+    if (!initials) initials = initialsForSingleName(name, options);
 
     // is there an email in the name?
     matches = name.match(findEmailPattern);
@@ -226,13 +234,12 @@
   //
   //
   //
-  function parseMultipleNames (names) {
-    var initialsArray = initialsForMultipleNames(names, length);
+  function parseMultipleNames (names, options) {
+    var initialsArray = initialsForMultipleNames(names, options);
 
     return names.map(function(name, i) {
-      return parseSingleName(name, {
-        initials: initialsArray[i]
-      });
+      options.existing[name] = initialsArray[i];
+      return parseSingleName(name, options);
     });
   }
 
@@ -276,8 +283,12 @@
   //
   //
   //
-  function findPreferredInitials (name) {
+  function findPreferredInitials (name, options) {
     var matches;
+
+    // if prefered initials passed for current name
+    if (options.existing[name]) return options.existing[name];
+
     // if the name contains only upcase letters, let's take it as the initials as well
     if (uppercaseLettersOnlyPattern.test(name)) {
       return name;
@@ -367,6 +378,21 @@
       options.unshift(word);
       word = word.substr(0, word.length - 1);
     }
+    return options;
+  }
+
+  //
+  // make sure that options is always an object, and that
+  // * options.lenght is a number and >= defaultLength
+  // * existing is set and an object
+  //
+  function normalize (options) {
+    if (! options) options = {length: defaultLength};
+    if (typeof options === 'number') options = {length: options};
+
+    options.length = Math.max(options.length || 0, defaultLength);
+    options.existing = options.existing || {};
+
     return options;
   }
 

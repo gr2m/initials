@@ -1,5 +1,6 @@
 /* global initials, test, equal, deepEqual */
 
+
 test( 'initials( name )', function() {
   'use strict';
 
@@ -22,6 +23,7 @@ test( 'initials( namesArray )', function() {
 
   deepEqual( initials(['John Doe', 'Robert Roe', 'Larry Loe']), ['JD', 'RR', 'LL'], 'John Doe, Robert Roe, Larry Loe ☛ JD, RR, LL' );
   deepEqual( initials(['John Doe', 'Jane Dane']), ['JDo', 'JDa'], 'guarantees unique initials: John Doe, Jane Dane ☛ JDo, JDa' );
+  deepEqual( initials(['John Doe (JD)', 'Jane Dane']), ['JD', 'JDa'], 'guarantees unique initials, respecting preferences: John Doe (JD), Jane Dane ☛ JDo, JDa' );
   deepEqual( initials(['John Doe', 'Jane Dane', 'John Doe']), ['JDo', 'JDa', 'JDo'], 'same initials for same names: John Doe, Jane Dane, John Doe ☛ JDo, JDa, JDo' );
   deepEqual( initials(['John Smith', 'Jane Smith']), ['JoS', 'JaS'], 'shortest initials possible: John Smith, Jane Smith ☛ JoS, JaS' );
 
@@ -36,6 +38,22 @@ test( 'initials( namesArray )', function() {
 
   // https://github.com/gr2m/initials.js/issues/1
   // deepEqual( initials(['j']), ['j'], 'j ☛ j');
+});
+
+test( 'initials( nameOrNames, {existing: initialsForNames} )', function() {
+  'use strict';
+
+  equal( initials('John Doe', {
+    existing: {
+      'John Doe': 'JoDo'
+    }
+  }), 'JoDo', 'respect existing initials' );
+
+  deepEqual( initials(['John Doe', 'Jane Dane'], {
+    existing: {
+      'John Doe': 'JD'
+    }
+  }), ['JD', 'JDa'], 'respect existing initials' );
 });
 
 test( 'initials.addTo( name )', function() {
@@ -54,6 +72,22 @@ test( 'initials.addTo( namesArray )', function() {
   deepEqual( initials.addTo(['John Doe', 'Jane Dane']), ['John Doe (JDo)', 'Jane Dane (JDa)'], 'John Doe, Jane Dane ☛ John Doe (JDo), Jane Dane (JDa)' );
 });
 
+test( 'initials.addTo( nameOrNames, {existing: initialsForNames} )', function() {
+  'use strict';
+
+  equal( initials.addTo('John Doe', {
+    existing: {
+      'John Doe': 'JoDo'
+    }
+  }), 'John Doe (JoDo)', 'respect existing initials' );
+
+  deepEqual( initials.addTo(['John Doe', 'Jane Dane'], {
+    existing: {
+      'John Doe': 'JD'
+    }
+  }), ['John Doe (JD)', 'Jane Dane (JDa)'], 'respect existing initials' );
+});
+
 test( 'initials.parse( name )', function() {
   'use strict';
 
@@ -67,3 +101,31 @@ test( 'initials.parse( namesArray )', function() {
 
   deepEqual( initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{name: 'John Doe', initials: 'JD'},{name: 'Robert Roe', initials: 'RR'},{name: 'Larry Loe', initials: 'LL'}], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL' );
 });
+
+
+
+test( 'initials.parse( nameOrNames, {existing: initialsForNames} )', function() {
+  'use strict';
+
+  deepEqual( initials.parse('John Doe', {
+    existing: {
+      'John Doe': 'JoDo'
+    }
+  }), {name: 'John Doe', initials: 'JoDo'}, 'respect existing initials for single name' );
+
+  deepEqual( initials.parse(['John Doe', 'Jane Dane'], {
+    existing: {
+      'John Doe': 'JD'
+    }
+  }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names' );
+});
+
+// test( 'debug', function() {
+//   'use strict';
+
+//   deepEqual( initials.parse(['John Doe', 'Jane Dane'], {
+//       existing: {
+//         'John Doe': 'JD'
+//       }
+//     }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials' );
+// });
