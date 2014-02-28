@@ -68,12 +68,11 @@
     var length = options.length || 2;
     findFirstLettersPattern = new RegExp('\\w{'+length+'}');
 
-    if (! name) return '';
-
     initials = findPreferredInitials(name, options);
     if (initials) return initials;
 
     name = cleanupName(name);
+    if (! name) return '';
 
     // remove diacritics, as they screw up the /\b/ pattern
     name = removeDiacritics(name);
