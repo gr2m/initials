@@ -102,8 +102,6 @@ test( 'initials.parse( namesArray )', function() {
   deepEqual( initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{name: 'John Doe', initials: 'JD'},{name: 'Robert Roe', initials: 'RR'},{name: 'Larry Loe', initials: 'LL'}], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL' );
 });
 
-
-
 test( 'initials.parse( nameOrNames, {existing: initialsForNames} )', function() {
   'use strict';
 
@@ -120,12 +118,7 @@ test( 'initials.parse( nameOrNames, {existing: initialsForNames} )', function() 
   }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names' );
 });
 
-// test( 'debug', function() {
-//   'use strict';
 
-//   deepEqual( initials.parse(['John Doe', 'Jane Dane'], {
-//       existing: {
-//         'John Doe': 'JD'
-//       }
-//     }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials' );
+// test('debug', function() {
+//   deepEqual( initials(['j']), ['j'], 'j ☛ j');
 // });

@@ -127,6 +127,11 @@
       if (! name) return '';
       if (initialsForNamesMap[name]) return;
 
+      if (name.length < length) {
+        initialsForNamesMap[name] = [name];
+        return;
+      }
+
       initials = findPreferredInitials(name, options);
       if (initials) {
         map[initials] = 1;
