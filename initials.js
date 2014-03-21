@@ -124,14 +124,19 @@
 
     // get all possible initials for all names for given length
     names.forEach(function(name) {
-      if (! name) return '';
+      // normalize
+      if (! name) name = '';
+
+      // known name? Gets same initials, stop here
       if (initialsForNamesMap[name]) return;
 
+      // too short to extract initials from? Use name as initials.
       if (name.length < length) {
         initialsForNamesMap[name] = [name];
         return;
       }
 
+      // preferred initials like (JD)? Use these
       initials = findPreferredInitials(name, options);
       if (initials) {
         map[initials] = 1;
