@@ -1,6 +1,6 @@
 {
   "name": "initials",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "authors": [
     "Gregor Martynus <gregor@martynus.net>"
   ],
@@ -17,7 +17,7 @@
     "tests"
   ],
   "devDependencies": {
-    "bootstrap-editable-table": "~0.1.0",
+    "bootstrap-editable-table": "~0.2.3",
     "qunit": "~1.14.0"
   },
   "dependencies": {}
