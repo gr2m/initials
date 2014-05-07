@@ -212,7 +212,8 @@
     initials = findPreferredInitials(name, options);
     if (initials) {
       // if yes, remove it from name
-      name = name.replace(initials, '');
+      name = name.replace(uppercaseLettersOnlyPattern, '');
+      name = name.replace(initialsInNamePattern, '');
     }
 
     // use preferred initials if passed

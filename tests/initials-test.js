@@ -62,8 +62,10 @@ test( 'initials.addTo( name )', function() {
   equal( initials.addTo('John Doe'), 'John Doe (JD)', 'John Doe ☛ John Doe (JD)' );
   equal( initials.addTo('(JJ) Jack Johnson'), 'Jack Johnson (JJ)', 'Jack Johnson ☛ Jack Johnson (JJ)' );
   equal( initials.addTo('JD'), 'JD', 'JD ☛ JD' );
+  equal( initials.addTo('JD (JD)'), 'JD (JD)', 'JD (JD) ☛ JD (JD)' );
   equal( initials.addTo('John Doe (JoDo) joe@example.com'), 'John Doe (JoDo) <joe@example.com>', 'John Doe (JoDo) joe@example.com ☛ John Doe (JoDo) <joe@example.com>' );
   equal( initials.addTo('joe@example.com'), 'joe@example.com (jo)', 'joe@example.com ☛ joe@example.com (jo)' );
+  equal( initials.addTo('joe (j)'), 'joe (j)', 'joe (j) ☛ joe (j)' );
 });
 test( 'initials.addTo( namesArray )', function() {
   'use strict';
