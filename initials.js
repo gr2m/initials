@@ -347,7 +347,7 @@
 
     // sort options, shortest first
     options = options.sort(function(a, b) {
-      return a.length - b.length;
+      return a.length - b.length || options.indexOf(a) - options.indexOf(b);
     });
 
     // cache for future

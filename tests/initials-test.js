@@ -122,5 +122,5 @@ test( 'initials.parse( nameOrNames, {existing: initialsForNames} )', function() 
 
 
 // test('debug', function() {
-//   deepEqual( initials(['j']), ['j'], 'j ☛ j');
+//   equal( initials('John Doe', 3), 'JDo', 'John Doe ☛ JDo' );
 // });
