@@ -67,6 +67,7 @@ test( 'initials.addTo( name )', function() {
   equal( initials.addTo('joe@example.com'), 'joe@example.com (jo)', 'joe@example.com ☛ joe@example.com (jo)' );
   equal( initials.addTo('joe (j)'), 'joe (j)', 'joe (j) ☛ joe (j)' );
   equal( initials.addTo('Frönkää Üüd'), 'Frönkää Üüd (FÜ)', 'Frönkää Üüd ☛ Frönkää Üüd (FÜ)' );
+  equal( initials.addTo('funky (fu)'), 'funky (fu)', 'funky (fu) ☛ funky (fu)' );
 });
 test( 'initials.addTo( namesArray )', function() {
   'use strict';
