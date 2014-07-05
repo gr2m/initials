@@ -22,6 +22,9 @@ module.exports = function(grunt) {
             'initials.js',
             'index.html',
             'tests/*',
+            'CHANGELOG.md',
+            'bower.json',
+            'package.json'
           ],
           pushTo: 'origin gh-pages'
         }
