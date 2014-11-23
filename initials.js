@@ -37,7 +37,7 @@
   // PUBLIC API METHODS
 
   //
-  // initials alows to be used with either a string or an array of strings
+  // initials allows to be used with either a string or an array of strings
   //
   function initials(nameOrNames, options) {
     if (! nameOrNames) return '';
@@ -46,7 +46,7 @@
   }
 
   //
-  // finds initials in a name and adds them right ot them
+  // finds initials in a name and adds them to the right side
   //
   function addInitialsTo (nameOrNames, options) {
     if (! nameOrNames) return '';
@@ -243,7 +243,7 @@
       name = name.replace(email, '');
     }
 
-    // clean up the remainings
+    // clean up the rest
     name = name.replace(findAllNonCharactersPattern, ' ').trim();
 
     // do only return what's present
@@ -309,7 +309,7 @@
   function findPreferredInitials (name, options) {
     var matches;
 
-    // if prefered initials passed for current name
+    // if preferred initials passed for current name
     if (options.existing[name]) return options.existing[name];
 
     // if the name contains only upcase letters, let's take it as the initials as well
@@ -406,7 +406,7 @@
 
   //
   // make sure that options is always an object, and that
-  // * options.lenght is a number and >= defaultLength
+  // * options.length is a number and >= defaultLength
   // * existing is set and an object
   //
   function normalize (options) {
