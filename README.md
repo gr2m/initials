@@ -1,7 +1,7 @@
 Initials. Because JD is shorter than John Doe
 =============================================
 
-> a JavaScript library to extract initials from and add initials to a names
+> extracts initials from and adds initials to names
 
 Installation
 ------------
