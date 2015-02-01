@@ -8,4 +8,3 @@ before_install:
 branches:
   only:
     - gh-pages
-    - /^pull.*$/
