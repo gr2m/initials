@@ -1,6 +1,5 @@
 /* global initials, test, equal, deepEqual */
 
-
 test( 'initials( name )', function() {
   'use strict';
 
@@ -36,8 +35,8 @@ test( 'initials( namesArray )', function() {
 
   deepEqual( initials(['joe@example.com']), ['jo'], 'domains are ignored when a name is an email' );
 
-  // https://github.com/gr2m/initials.js/issues/1
-  // deepEqual( initials(['j']), ['j'], 'j ☛ j');
+  // https://github.com/gr2m/initials/issues/1
+  deepEqual( initials(['j']), ['j'], 'j ☛ j');
 });
 
 test( 'initials( nameOrNames, {existing: initialsForNames} )', function() {

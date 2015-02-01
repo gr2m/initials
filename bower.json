@@ -8,7 +8,7 @@
   "main": "initials.js",
   "keywords": [],
   "license": "MIT",
-  "homepage": "http://gr2m.github.io/initials.js",
+  "homepage": "http://gr2m.github.io/initials",
   "ignore": [
     "**/.*",
     "node_modules",

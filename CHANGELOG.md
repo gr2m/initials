@@ -28,7 +28,7 @@
 
 #### Bug Fixes
 
-* Frönkää Üüd ☛ Frönkää Üüd (FÜ) ([d0232f91](http://github.com/gr2m/initials.js/commit/d0232f9113947a05a2a9d50141dda25ed46ab0d2))
+* Frönkää Üüd ☛ Frönkää Üüd (FÜ) ([d0232f91](http://github.com/gr2m/initials/commit/d0232f9113947a05a2a9d50141dda25ed46ab0d2))
 
 
 <a name="0.2.4"></a>
@@ -37,5 +37,5 @@
 
 #### Bug Fixes
 
-* Frönkää Üüd ☛ Frönkää Üüd (FÜ) ([d0232f91](http://github.com/gr2m/initials.js/commit/d0232f9113947a05a2a9d50141dda25ed46ab0d2))
+* Frönkää Üüd ☛ Frönkää Üüd (FÜ) ([d0232f91](http://github.com/gr2m/initials/commit/d0232f9113947a05a2a9d50141dda25ed46ab0d2))
 

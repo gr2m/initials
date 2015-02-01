@@ -1,7 +1,7 @@
 Initials. Because JD is shorter than John Doe
 =============================================
 
-> a JavaScript function to get initials from names
+> a JavaScript library to extract initials from and add initials to a names
 
 Installation
 ------------
@@ -78,17 +78,11 @@ console.log( initials(['John Doe', 'Jane Dane']) );
 // ['JDo', 'JDa']
 ```
 
-Todo
-----
-
-I'd say the implementations is robust, but has room for
-performance optimizations. Pull requests welcome!
-
 
 Fine Print
 ----------
 
-initials.js have been authored by [Gregor Martynus](https://github.com/gr2m),
+initials have been authored by [Gregor Martynus](https://github.com/gr2m),
 proud member of the [Hoodie Community](http://hood.ie/).
 
 License: MIT

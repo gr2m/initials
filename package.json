@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gr2m/initials.js"
+    "url": "git://github.com/gr2m/initials.git"
   },
   "author": "Gregor Martynus <gregor@martynus.net>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gr2m/initials.js/issues"
+    "url": "https://github.com/gr2m/initials/issues"
   },
-  "homepage": "http://gr2m.github.io/initials.js",
+  "homepage": "http://gr2m.github.io/initials",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-qunit": "~0.4.0",
