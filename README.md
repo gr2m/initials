@@ -4,6 +4,7 @@ Initials. Because JD is shorter than John Doe
 > extracts initials from and adds initials to names
 
 [![Build Status](https://api.travis-ci.org/gr2m/initials.svg?branch=gh-pages)](https://travis-ci.org/gr2m/initials/)
+[![Dependencies Status](https://david-dm.org/gr2m/initials.svg)](https://david-dm.org/gr2m/initials)
 
 Installation
 ------------
@@ -78,6 +79,21 @@ When passing an Array of names, doublicates of initials are avoided
 ```js
 console.log( initials(['John Doe', 'Jane Dane']) );
 // ['JDo', 'JDa']
+```
+
+Test
+----
+
+```
+npm test
+```
+
+Tests are run with [wurst](https://github.com/gr2m/wurst).
+In order to run them in a browser or trough saucelabs,
+set `WURST_CLIENT` accordingly, for example
+
+```
+WURST_CLIENT=selenium:firefox npm test
 ```
 
 
