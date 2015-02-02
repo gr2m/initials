@@ -88,12 +88,12 @@ Test
 npm test
 ```
 
-Tests are run with [wurst](https://github.com/gr2m/wurst).
+Tests are run with [testmate](https://github.com/gr2m/testmate).
 In order to run them in a browser or trough saucelabs,
 set `WURST_CLIENT` accordingly, for example
 
 ```
-WURST_CLIENT=selenium:firefox npm test
+TEST_CLIENT=selenium:firefox npm test
 ```
 
 

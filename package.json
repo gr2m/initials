@@ -5,9 +5,9 @@
   "main": "initials.js",
   "scripts": {
     "jshint": "jshint -c .jshintrc *.js test/*.js",
-    "test": "npm run jshint && wurst test/*.js",
-    "test:node": "wurst --client node test/*.js",
-    "test:browser": "wurst --client selenium:firefox test/*.js"
+    "test": "npm run jshint && testmate test/*.js",
+    "test:node": "testmate --client node test/*.js",
+    "test:browser": "testmate --client selenium:firefox test/*.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "homepage": "http://gr2m.github.io/initials",
   "dependencies": {
-    "wurst": "^1.0.0"
+    "testmate": "^1.0.0"
   },
   "devDependencies": {
     "jshint": "^2.6.0"
