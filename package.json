@@ -4,7 +4,9 @@
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
-    "test": "wurst test/*.js",
+    "jshint": "jshint -c .jshintrc *.js test/*.js",
+    "test": "npm run jshint && wurst test/*.js",
+    "test:node": "wurst --client node test/*.js",
     "test:browser": "wurst --client selenium:firefox test/*.js"
   },
   "repository": {
@@ -19,5 +21,8 @@
   "homepage": "http://gr2m.github.io/initials",
   "dependencies": {
     "wurst": "^1.0.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.6.0"
   }
 }
