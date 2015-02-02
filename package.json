@@ -4,7 +4,8 @@
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "wurst test/*.js",
+    "test:browser": "wurst --client selenium:firefox test/*.js"
   },
   "repository": {
     "type": "git",
@@ -16,10 +17,7 @@
     "url": "https://github.com/gr2m/initials/issues"
   },
   "homepage": "http://gr2m.github.io/initials",
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-qunit": "~0.4.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-bump": "0.0.13"
+  "dependencies": {
+    "wurst": "^1.0.0"
   }
 }
