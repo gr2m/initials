@@ -1,10 +1,26 @@
 language: node_js
+
 node_js:
 - '0.10'
 
-before_install:
-- npm install -g grunt-cli
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "sleep 5"
 
 branches:
   only:
     - gh-pages
+
+env:
+  global:
+    # saucelabs
+    - secure: DBDZaLrin8wgzadzTt4fsFeDe/rSyHPLjnoD2d6RYPaIFXIkX8SbU81vZ7PMnLPm8iePuYfEguWv4BCAHJ62uY4GEKnKaRX9n66q6Be8WFbPaDaJ4JmdA0RJIj7N0CtXpH3puWfB7zx5/XvR2c4Cp+W7RwApebzifXzrtNXTqDE=
+    - secure: XUPNz3Kkw0F+23dpJHZsucWKKe+zNGeg4/gy3+yaj79HZmuxB4X2XuDm1aRfissO7MoJmlUh0YVY6heQj1JeyBoCy8QB2NjDXrrkiHpf2z12jKv8uxoNQm4tY2/XOguD3I2hFPM/XZW/1wTsozpkLQuThr1H5PWDkSzoEg3VDXI=
+  matrix:
+  - WURST_CLIENT=""
+  - WURST_CLIENT=node
+  - WURST_CLIENT=selenium:firefox
+  - WURST_CLIENT="saucelabs:internet explorer:10:Windows 8"
+
+sudo: false
