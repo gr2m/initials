@@ -7,7 +7,9 @@
     "jshint": "jshint -c .jshintrc *.js test/*.js",
     "test": "npm run jshint && testmate test/*.js",
     "test:node": "testmate --client node test/*.js",
-    "test:browser": "testmate --client selenium:firefox test/*.js"
+    "test:browser": "testmate --client selenium:firefox test/*.js",
+    "prepublish": "semantic-release pre",
+    "postpublish": "semantic-release post"
   },
   "repository": {
     "type": "git",
