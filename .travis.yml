@@ -11,6 +11,18 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - "sleep 5"
+  - curl -Lo travis_after_all.py https://raw.github.com/dmakhno/travis_after_all/master/travis_after_all.py
+
+after_success:
+  - python travis_after_all.py
+  - export $(cat .to_export_back)
+after_failure:
+  - python travis_after_all.py
+  - export $(cat .to_export_back)
+before_deploy:
+  - rm -f travis_after_all.py
+after_script:
+  - echo leader=$BUILD_LEADER status=$BUILD_AGGREGATE_STATUS
 
 branches:
   only:
@@ -34,5 +46,6 @@ deploy:
   on:
     branch: gh-pages
     repo: gr2m/initials
+    condition: "$BUILD_LEADER = YES"
 
 sudo: false
