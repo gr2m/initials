@@ -41,6 +41,7 @@ env:
 deploy:
   provider: npm
   email: gregor@martynus.net
+  skip_cleanup: true
   api_key:
     secure: Y/jfw3uEHkojHvuV6ZvlJYF21O14V1gDvnBkpg/OgWsoc/t0jJFyGBdRyQks1dX/6o8xpMNkwQCfjN0HUAcrFu+pysTy0GmIlCWToy9ux5FFrHIn86IPn3ohGGa21a8YrsIESTCNiVvvg18/iGVqdcGtF9MFi2kdODA+bvmhM1E=
   on:
