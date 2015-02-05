@@ -28,12 +28,11 @@ env:
 
 deploy:
   provider: npm
-  email: stephan@boennemann.me
-  skip_cleanup: true
+  email: gregor@martynus.net
   api_key:
-    secure: Lq1FZweaNr/Ah8M7h3oWQ59HTswzvcksTUfzWb/dpqNn5FECN9I+4gi79EQPD62ZbJDCuDHY0EEEDLdnaB1z8N7kOj1RtmvC1k0teTEXFsGBPS4evXakRj+AfoBAGsTaXHqBYBOvYBxJT2Md/UoOgPSQjtAdZSNsmoFb1xkngQ0=
+    secure: Y/jfw3uEHkojHvuV6ZvlJYF21O14V1gDvnBkpg/OgWsoc/t0jJFyGBdRyQks1dX/6o8xpMNkwQCfjN0HUAcrFu+pysTy0GmIlCWToy9ux5FFrHIn86IPn3ohGGa21a8YrsIESTCNiVvvg18/iGVqdcGtF9MFi2kdODA+bvmhM1E=
   on:
     branch: gh-pages
-    repo: boennemann/semantic-release
+    repo: gr2m/initials
 
 sudo: false
