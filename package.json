@@ -23,6 +23,7 @@
     "testmate": "^1.0.0"
   },
   "devDependencies": {
-    "jshint": "^2.6.0"
+    "jshint": "^2.6.0",
+    "semantic-release": "^2.0.0"
   }
 }
