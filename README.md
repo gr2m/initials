@@ -74,7 +74,7 @@ console.log( initials('joe@example.com') );
 // 'jo'
 ```
 
-When passing an Array of names, doublicates of initials are avoided
+When passing an Array of names, duplicates of initials are avoided
 
 ```js
 console.log( initials(['John Doe', 'Jane Dane']) );
