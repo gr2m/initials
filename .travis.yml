@@ -43,7 +43,7 @@ deploy:
   email: gregor@martynus.net
   skip_cleanup: true
   api_key:
-    secure: Y/jfw3uEHkojHvuV6ZvlJYF21O14V1gDvnBkpg/OgWsoc/t0jJFyGBdRyQks1dX/6o8xpMNkwQCfjN0HUAcrFu+pysTy0GmIlCWToy9ux5FFrHIn86IPn3ohGGa21a8YrsIESTCNiVvvg18/iGVqdcGtF9MFi2kdODA+bvmhM1E=
+    secure: U437l7yJqW4fbUCQunEc0pmp5yS5dlD9XT7SA4qHD7MRfMn75xa1+GhilfyKLI0EOyyv4cC8AcWJl3/ehQfSBCcWbEChA8Yc/8KT8h0DXbe/Vtvo61tx+hkrCKj9zs25ueTDbcbS2VvvKlIPZ/jj1Z1iouoIYYmd8nZBAeEvlrg=
   on:
     branch: gh-pages
     repo: gr2m/initials
