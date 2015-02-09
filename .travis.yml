@@ -47,6 +47,6 @@ deploy:
   on:
     branch: gh-pages
     repo: gr2m/initials
-    condition: "$BUILD_LEADER = YES"
+    condition: "$BUILD_LEADER$BUILD_AGGREGATE_STATUS = YESothers_succeeded"
 
 sudo: false
