@@ -21,11 +21,9 @@
     "url": "https://github.com/gr2m/initials/issues"
   },
   "homepage": "http://gr2m.github.io/initials",
-  "dependencies": {
-    "testmate": "^1.0.0"
-  },
   "devDependencies": {
     "jshint": "^2.6.0",
-    "semantic-release": "^3.0.2"
+    "semantic-release": "^3.0.2",
+    "testmate": "^1.0.1"
   }
 }
