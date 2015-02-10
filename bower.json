@@ -16,8 +16,7 @@
     "tests"
   ],
   "devDependencies": {
-    "bootstrap-editable-table": "~0.2.3",
-    "qunit": "~1.14.0"
+    "bootstrap-editable-table": "~0.2.3"
   },
   "dependencies": {}
 }
