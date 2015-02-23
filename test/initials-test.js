@@ -18,6 +18,11 @@ describe( 'initials( name )', function() {
   it('John Doe (dj) ☛ dj', function() {
     expect( initials('John Doe (dj)') ).to.equal('dj');
   });
+
+  // https://github.com/gr2m/initials/issues/6
+  it('안형준 -> 안형', function() {
+    expect( initials('안형준') ).to.equal('안형');
+  });
 });
 
 describe( 'initials( name, 3 )', function() {

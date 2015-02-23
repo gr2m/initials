@@ -71,10 +71,8 @@
   function initialsForSingleName(name, options) {
     var matches;
     var result;
-    var findFirstLettersPattern;
     var initials;
     var length = options.length || 2;
-    findFirstLettersPattern = new RegExp('\\w{'+length+'}');
 
     initials = findPreferredInitials(name, options);
     if (initials) return initials;
@@ -93,7 +91,7 @@
 
     if (matches.length < 2) {
       if (name.length > length) {
-        return name.match(findFirstLettersPattern).join('');
+        return name.substr(0, length);
       } else {
         return name;
       }
