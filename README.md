@@ -90,7 +90,7 @@ npm test
 
 Tests are run with [testmate](https://github.com/gr2m/testmate).
 In order to run them in a browser or trough saucelabs,
-set `WURST_CLIENT` accordingly, for example
+set `TEST_CLIENT` accordingly, for example
 
 ```
 TEST_CLIENT=selenium:firefox npm test
