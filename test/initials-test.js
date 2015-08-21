@@ -124,6 +124,11 @@ describe( 'initials.addTo( name )', function() {
   it('funky (fu) ☛ funky (fu)',function() {
     expect( initials.addTo('funky (fu)'), 'funky (fu)');
   });
+
+  // https://github.com/gr2m/initials/issues/7
+  it('test.test@test.org <test.test@test.org> ☛ test.test@test.org (tt)', function() {
+    expect( initials.addTo('test.test@test.org <test.test@test.org>') ).to.equal('test.test@test.org (tt)');
+  });
 });
 describe( 'initials.addTo( namesArray )', function() {
   it('John Doe, Robert Roe, Larry Loe ☛ John Doe (JD), Robert Roe (RR), Larry Loe (LL)',function() {
