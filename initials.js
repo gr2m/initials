@@ -239,6 +239,19 @@
     if (email) {
       // if yes, remove it from name
       name = name.replace(email, '');
+
+      // if the email and the name are the same, initials can not be rendered
+      // the initials method uses email for rendering just when the name is false
+      // see https://github.com/gr2m/initials/issues/7 for more details
+      if (name.trim() === '<' + email + '>') {
+        // set the name to undefined
+        name = '';
+
+        // fire up the initials again with the email
+        if (!initials) {
+          initials = initialsForSingleName(email, options);
+        }
+      }
     }
 
     // clean up the rest
