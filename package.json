@@ -1,19 +1,16 @@
 {
   "name": "initials",
-  "version": "0.2.12",
   "description": "initials for names",
   "main": "initials.js",
   "scripts": {
-    "jshint": "jshint -c .jshintrc *.js test/*.js",
-    "test": "npm run jshint && testmate test/*.js",
-    "test:node": "testmate --client node test/*.js",
-    "test:browser": "testmate --client selenium:firefox test/*.js",
-    "prepublish": "semantic-release pre",
-    "postpublish": "semantic-release post"
+    "test": "standard initials.js test/initials-test.js && npm run -s test:node | tap-spec",
+    "test:node": "node test/initials-test.js",
+    "coverage": "istanbul cover test/initials-test.js && istanbul-coveralls ",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gr2m/initials.git"
+    "url": "https://github.com/gr2m/initials.git"
   },
   "author": "Gregor Martynus <gregor@martynus.net>",
   "license": "MIT",
@@ -22,8 +19,12 @@
   },
   "homepage": "http://gr2m.github.io/initials",
   "devDependencies": {
-    "jshint": "^2.6.0",
-    "semantic-release": "^3.0.2",
-    "testmate": "^1.0.1"
+    "bootstrap-editable-table": "github:gr2m/bootstrap-editable-table#gh-pages",
+    "istanbul": "^0.3.5",
+    "istanbul-coveralls": "^1.0.1",
+    "semantic-release": "^4.3.4",
+    "standard": "^3.11.1",
+    "tap-spec": "^3.0.0",
+    "tape": "^4.2.0"
   }
 }
