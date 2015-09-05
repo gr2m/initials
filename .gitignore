@@ -1,2 +1,5 @@
+coverage/
 node_modules/
 *.log
+.coveralls.yml
+.DS_Store
