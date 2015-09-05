@@ -1,54 +1,15 @@
+sudo: false
 language: node_js
-
-node_js:
-- '0.10'
-
 cache:
   directories:
-  - node_modules
-
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - iojs
+before_install:
+  - npm i -g npm@^2.0.0
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "sleep 5"
-  - curl -Lo travis_after_all.py https://raw.github.com/dmakhno/travis_after_all/master/travis_after_all.py
-
+  - npm prune
 after_success:
-  - python travis_after_all.py
-  - export $(cat .to_export_back)
-after_failure:
-  - python travis_after_all.py
-  - export $(cat .to_export_back)
-before_deploy:
-  - rm -f travis_after_all.py .to_export_back
-after_script:
-  - echo leader=$BUILD_LEADER status=$BUILD_AGGREGATE_STATUS
-
-branches:
-  only:
-    - gh-pages
-
-env:
-  global:
-    # saucelabs
-    - secure: DBDZaLrin8wgzadzTt4fsFeDe/rSyHPLjnoD2d6RYPaIFXIkX8SbU81vZ7PMnLPm8iePuYfEguWv4BCAHJ62uY4GEKnKaRX9n66q6Be8WFbPaDaJ4JmdA0RJIj7N0CtXpH3puWfB7zx5/XvR2c4Cp+W7RwApebzifXzrtNXTqDE=
-    - secure: XUPNz3Kkw0F+23dpJHZsucWKKe+zNGeg4/gy3+yaj79HZmuxB4X2XuDm1aRfissO7MoJmlUh0YVY6heQj1JeyBoCy8QB2NjDXrrkiHpf2z12jKv8uxoNQm4tY2/XOguD3I2hFPM/XZW/1wTsozpkLQuThr1H5PWDkSzoEg3VDXI=
-    # github
-    - secure: DQSnxoJjJqg50Bsq/6ZBjx13+ACGbpsSvBx1k7rmYx1Qf1ZKg+fpkOZBMspJYu6pVCT47Bj94wT2Quqs994Q7OC/w8tMgXfOp8aDBBbulJIeBhEFTTq76ojmTow9smYWvdMSbmpKtbXb1MQYfWsgXepkFpjJCn5jtBmExFT8FI4=
-  matrix:
-  - TEST_CLIENT=node
-  - TEST_CLIENT=selenium:firefox
-  - TEST_CLIENT="saucelabs:internet explorer:10:Windows 8"
-
-deploy:
-  provider: npm
-  email: gregor@martynus.net
-  skip_cleanup: true
-  api_key:
-    secure: U437l7yJqW4fbUCQunEc0pmp5yS5dlD9XT7SA4qHD7MRfMn75xa1+GhilfyKLI0EOyyv4cC8AcWJl3/ehQfSBCcWbEChA8Yc/8KT8h0DXbe/Vtvo61tx+hkrCKj9zs25ueTDbcbS2VvvKlIPZ/jj1Z1iouoIYYmd8nZBAeEvlrg=
-  on:
-    branch: gh-pages
-    repo: gr2m/initials
-    condition: "$BUILD_LEADER$BUILD_AGGREGATE_STATUS = YESothers_succeeded"
-
-sudo: false
+  - npm run semantic-release
