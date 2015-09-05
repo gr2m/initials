@@ -5,6 +5,10 @@ cache:
     - node_modules
 notifications:
   email: false
+branches:
+  only:
+  - gh-pages
+  - /^pull*$/
 node_js:
   - iojs
 before_install:
