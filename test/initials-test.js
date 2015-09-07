@@ -38,6 +38,9 @@ test('initials(namesArray)', function (t) {
 
   // https://github.com/gr2m/initials/issues/1
   t.deepEqual(initials(['j']), ['j'], 'j ☛ j')
+
+  // https://github.com/gr2m/initials/issues/14
+  // t.deepEqual(initials(['Moe Minutes', 'Moe Min']), ['MoM', 'MMi'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
 })
 
 test('initials(nameOrNames, {existing: initialsForNames})', function (t) {
