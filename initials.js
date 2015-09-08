@@ -172,7 +172,7 @@
       possibleInitials = initialsForNamesMap[name]
       optionsForNames.push(possibleInitials)
 
-      for (var i = 0; i < possibleInitials.length; i++) {
+      for (var i = possibleInitials.length - 1; i >= 0; i--) {
         if (duplicatesMap[possibleInitials[i]]) {
           possibleInitials.splice(i, 1)
         }
