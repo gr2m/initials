@@ -159,7 +159,7 @@
       // return all possible initials for given length
       possibleInitials = getPossibleInitialsForName(name).filter(function (initials) {
         if (initials.length !== length) return false
-        duplicatesMap[initials] = 0
+        if (!duplicatesMap[initials]) duplicatesMap[initials] = 0
         if (map[initials]) duplicatesMap[initials]++
         map[initials] = 1
         return true
