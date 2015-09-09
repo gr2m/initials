@@ -24,7 +24,7 @@ test('initials(namesArray)', function (t) {
   t.deepEqual(initials(['John Doe', 'Jane Dane']), ['JDo', 'JDa'], 'guarantees unique initials: John Doe, Jane Dane ☛ JDo, JDa')
   t.deepEqual(initials(['John Doe (JD)', 'Jane Dane']), ['JD', 'JDa'], 'guarantees unique initials, respecting preferences: John Doe (JD), Jane Dane ☛ JDo, JDa')
   t.deepEqual(initials(['John Doe', 'Jane Dane', 'John Doe']), ['JDo', 'JDa', 'JDo'], 'same initials for same names: John Doe, Jane Dane, John Doe ☛ JDo, JDa, JDo')
-  t.deepEqual(initials(['John Smith', 'Jane Smith']), ['JoS', 'JaS'], 'shortest initials possible: John Smith, Jane Smith ☛ JoS, JaS')
+  t.deepEqual(initials(['John Smith', 'Jane Smith']), ['JSm', 'JaS'], 'shortest initials possible: John Smith, Jane Smith ☛ JSm, JaS')
   t.deepEqual(initials(['John Doe (JoDo)', 'Jane Dane']), ['JoDo', 'JD'], 'respects preferred initials: John Doe (JoDo), Jane Dane ☛ JoDo, JD')
   t.deepEqual(initials(['John Doe (JoDo)', 'Jane Dane (JoDo)']), ['JoDo', 'JoDo'], 'conflicting initials can be enforced: John Doe (JoDo), Jane Dane (JoDo) ☛ JoDo, JoDo')
   t.deepEqual(initials(['John Doe (JD)', 'Jane Dane']), ['JD', 'JDa'], 'preferred initials are respected in other names: John Doe (JD), Jane Dane ☛ JD, JDa')
@@ -35,7 +35,7 @@ test('initials(namesArray)', function (t) {
   t.deepEqual(initials(['j']), ['j'], 'j ☛ j')
 
   // https://github.com/gr2m/initials/issues/14
-  // t.deepEqual(initials(['Moe Minutes', 'Moe Min']), ['MoM', 'MMi'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
+  t.deepEqual(initials(['Moe Minutes', 'Moe Min']), ['MoM', 'MMi'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
   t.end()
 })
 

@@ -159,7 +159,8 @@
       // return all possible initials for given length
       possibleInitials = getPossibleInitialsForName(name).filter(function (initials) {
         if (initials.length !== length) return false
-        if (map[initials]) duplicatesMap[initials] = 1
+        if (!duplicatesMap[initials]) duplicatesMap[initials] = 0
+        if (map[initials]) duplicatesMap[initials]++
         map[initials] = 1
         return true
       })
@@ -168,12 +169,17 @@
     })
 
     // remove duplicates
-    for (var name in initialsForNamesMap) {
-      possibleInitials = initialsForNamesMap[name]
+    var keys = []
+    for (var k in initialsForNamesMap) {
+      keys.unshift(k)
+    }
+    for (var c = keys.length, n = 0; n < c; n++) {
+      possibleInitials = initialsForNamesMap[keys[n]]
       optionsForNames.push(possibleInitials)
 
-      for (var i = possibleInitials.length - 1; i >= 0; i--) {
-        if (duplicatesMap[possibleInitials[i]]) {
+      for (var i = 0; i < possibleInitials.length; i++) {
+        if (duplicatesMap[possibleInitials[i]] > 0) {
+          duplicatesMap[possibleInitials[i]]--
           possibleInitials.splice(i, 1)
         }
       }
