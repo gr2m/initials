@@ -1,4 +1,3 @@
-'use strict'
 var initials = require('../initials')
 var test = require('tape')
 
@@ -151,6 +150,7 @@ test('initials(), name.length is less 3', function (t) {
   t.equal(initials('Mo'), 'Mo', 'name.length is < 3, so the initials are equal to name')
 })
 
-// describe('debug', function() {
-//   equal( initials('John Doe', 3), 'JDo', 'John Doe ☛ JDo' );
-// });
+// uncomment the block below to run a single test only
+// test.only('debug', function (t) {
+//   t.equal(initials('foo'), 'bar', 'debugging')
+// })
