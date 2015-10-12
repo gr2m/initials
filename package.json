@@ -7,14 +7,14 @@
     "prebuild": "rimraf dist && mkdirp dist",
     "build": "browserify lib/initials.js -s initials -o dist/initials.js",
     "deploy": "npm run build:demo && npm run deploydocs",
+    "predeploydocs": "./bin/authorize-push.js",
+    "deploydocs": "gh-pages-deploy",
     "test": "standard lib/initials.js test/initials-test.js && npm run -s test:node | tap-spec",
     "test:node": "node test/initials-test.js",
     "coverage": "istanbul cover test/initials-test.js && istanbul-coveralls ",
+    "presemantic-release": "npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "deploydocs": "gh-pages-deploy",
-    "predeploydocs": "./bin/authorize-push.js",
-    "prepublish": "npm run build",
-    "postpublish": "npm run deploy"
+    "postsemantic-release": "npm run deploy"
   },
   "gh-pages-deploy": {
     "staticpath": "demo",
