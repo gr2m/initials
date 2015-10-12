@@ -3,7 +3,7 @@ Initials. Because JD is shorter than John Doe
 
 > extracts initials from and adds initials to names
 
-[![Build Status](https://api.travis-ci.org/gr2m/initials.svg?branch=gh-pages)](https://travis-ci.org/gr2m/initials/)
+[![Build Status](https://api.travis-ci.org/gr2m/initials.svg)](https://travis-ci.org/gr2m/initials/)
 [![Dependencies Status](https://david-dm.org/gr2m/initials.svg)](https://david-dm.org/gr2m/initials)
 
 Installation
