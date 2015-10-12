@@ -1,12 +1,24 @@
 {
   "name": "initials",
   "description": "initials for names",
-  "main": "initials.js",
   "scripts": {
-    "test": "standard initials.js test/initials-test.js && npm run -s test:node | tap-spec",
+    "start": "npm run build:demo && beefy ./index.js --cwd=./demo",
+    "build:demo": "browserify lib/initials.js -s initials -o demo/initials.js",
+    "prebuild": "rimraf dist && mkdirp dist",
+    "build": "browserify lib/initials.js -s initials -o dist/initials.js",
+    "deploy": "npm run build:demo && npm run deploydocs",
+    "test": "standard lib/initials.js test/initials-test.js && npm run -s test:node | tap-spec",
     "test:node": "node test/initials-test.js",
     "coverage": "istanbul cover test/initials-test.js && istanbul-coveralls ",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "deploydocs": "gh-pages-deploy",
+    "predeploydocs": "./bin/authorize-push.js",
+    "prepublish": "npm run build",
+    "postpublish": "npm run deploy"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "demo",
+    "noprompt": true
   },
   "repository": {
     "type": "git",
@@ -19,15 +31,17 @@
   },
   "homepage": "http://gr2m.github.io/initials",
   "devDependencies": {
+    "beefy": "^2.1.5",
+    "browserify": "^11.2.0",
     "bootstrap-editable-table": "github:gr2m/bootstrap-editable-table#gh-pages",
+    "gh-pages-deploy": "^0.3.0",
     "istanbul": "^0.3.5",
     "istanbul-coveralls": "^1.0.1",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.4.3",
     "semantic-release": "^4.3.4",
     "standard": "^3.11.1",
     "tap-spec": "^3.0.0",
     "tape": "^4.2.0"
-  },
-  "release": {
-    "branch": "gh-pages"
   }
 }
