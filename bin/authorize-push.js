@@ -16,7 +16,7 @@ var commands = [
   'git config user.name "zoepage"'
 ]
 commands.forEach(function (command) {
-  console.log('[authorize-push] %s', command)
+  console.log('[authorize-push] %s', command.replace(GH_TOKEN, '***'))
   exec(command)
 })
 
