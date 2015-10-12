@@ -5,12 +5,12 @@ cache:
     - node_modules
 notifications:
   email: false
-branches:
-  only:
-  - gh-pages
-  - /^pull*$/
 node_js:
   - iojs
+branches:
+  except:
+    # Ignorte semantic-release tags like "v1.2.3"
+    - /^v\d+\.\d+\.\d+$/
 before_install:
   - npm i -g npm@^2.0.0
 before_script:
