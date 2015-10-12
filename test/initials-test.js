@@ -1,19 +1,16 @@
-'use strict'
 var initials = require('../lib/initials')
 var test = require('tape')
 
 test('has function', function (t) {
-  t.plan(4)
-
   t.is(typeof initials, 'function', 'has method initials')
   t.is(typeof initials.addTo, 'function', 'has method initials.addTo')
   t.is(typeof initials.parse, 'function', 'has method initials.parse')
   t.is(typeof initials.find, 'function', 'has method initials.find')
+
+  t.end()
 })
 
 test('initials(name)', function (t) {
-  t.plan(6)
-
   t.equal(initials('John Doe'), 'JD', 'John Doe ☛ JD')
   t.equal(initials('john doe'), 'jd', 'joe doe ☛ jd')
   t.equal(initials('John Doe <joe@example.com>'), 'JD', 'John Doe <joe@example.com> ☛ JD')
@@ -22,18 +19,18 @@ test('initials(name)', function (t) {
 
   // https://github.com/gr2m/initials/issues/6
   t.equal(initials('안형준'), '안형', '안형준 -> 안형')
+
+  t.end()
 })
 
 test('initials(name, 3)', function (t) {
-  t.plan(2)
-
   t.equal(initials('John Doe', 3), 'JDo', 'John Doe ☛ JDo')
   t.equal(initials('John D.', 3), 'JoD', 'John D. ☛ JoD')
+
+  t.end()
 })
 
 test('initials(namesArray)', function (t) {
-  t.plan(12)
-
   t.deepEqual(initials(['John Doe', 'Robert Roe', 'Larry Loe']), ['JD', 'RR', 'LL'], 'John Doe, Robert Roe, Larry Loe ☛ JD, RR, LL')
   t.deepEqual(initials(['John Doe', 'Jane Dane']), ['JDo', 'JDa'], 'guarantees unique initials: John Doe, Jane Dane ☛ JDo, JDa')
   t.deepEqual(initials(['John Doe (JD)', 'Jane Dane']), ['JD', 'JDa'], 'guarantees unique initials, respecting preferences: John Doe (JD), Jane Dane ☛ JDo, JDa')
@@ -50,12 +47,11 @@ test('initials(namesArray)', function (t) {
 
   // https://github.com/gr2m/initials/issues/14
   t.deepEqual(initials(['Moe Minutes', 'Moe Min']), ['MoM', 'MMi'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
+
   t.end()
 })
 
 test('initials(nameOrNames, {existing: initialsForNames})', function (t) {
-  t.plan(2)
-
   t.equal(initials('John Doe', {
       existing: {
         'John Doe': 'JoDo'
@@ -68,11 +64,11 @@ test('initials(nameOrNames, {existing: initialsForNames})', function (t) {
         'John Doe': 'JD'
       }
     }), ['JD', 'JDa'], 'respect existing initials')
+
+  t.end()
 })
 
 test('initials.addTo(name)', function (t) {
-  t.plan(10)
-
   t.equal(initials.addTo('John Doe'), 'John Doe (JD)', 'John Doe ☛ John Doe (JD)')
   t.equal(initials.addTo('(JJ) Jack Johnson'), 'Jack Johnson (JJ)', 'Jack Johnson ☛ Jack Johnson (JJ)')
   t.equal(initials.addTo('JD'), 'JD', 'JD ☛ JD')
@@ -85,18 +81,18 @@ test('initials.addTo(name)', function (t) {
 
   // https://github.com/gr2m/initials/issues/7
   t.equal(initials.addTo('test.test@test.org <test.test@test.org>'), 'test.test@test.org (tt)', 'test.test@test.org <test.test@test.org> ☛ test.test@test.org (tt)')
+
+  t.end()
 })
 
 test('initials.addTo(namesArray)', function (t) {
-  t.plan(2)
-
   t.deepEqual(initials.addTo(['John Doe', 'Robert Roe', 'Larry Loe']), ['John Doe (JD)', 'Robert Roe (RR)', 'Larry Loe (LL)'], 'John Doe, Robert Roe, Larry Loe ☛ John Doe (JD), Robert Roe (RR), Larry Loe (LL)')
   t.deepEqual(initials.addTo(['John Doe', 'Jane Dane']), ['John Doe (JDo)', 'Jane Dane (JDa)'], 'John Doe, Jane Dane ☛ John Doe (JDo), Jane Dane (JDa)')
+
+  t.end()
 })
 
 test('initials.addTo(nameOrNames, {existing: initialsForNames})', function (t) {
-  t.plan(2)
-
   t.equal(
     initials.addTo('John Doe', {
       existing: {
@@ -110,26 +106,26 @@ test('initials.addTo(nameOrNames, {existing: initialsForNames})', function (t) {
         'John Doe': 'JD'
       }
     }), ['John Doe (JD)', 'Jane Dane (JDa)'], 'respect existing initials')
+
+  t.end()
 })
 
 test('initials.parse(name)', function (t) {
-  t.plan(4)
-
   t.deepEqual(initials.parse('John Doe'), {name: 'John Doe', initials: 'JD'}, 'John Doe ☛ name: John Doe, initials: JD')
   t.deepEqual(initials.parse('JD'), {initials: 'JD'}, 'JD ☛ initials: JD')
   t.deepEqual(initials.parse('joe@example.com'), {email: 'joe@example.com', initials: 'jo'}, 'joe@example.com ☛ email: joe@example.com, initials: jo')
   t.deepEqual(initials.parse('John Doe <joe@example.com>'), {name: 'John Doe', initials: 'JD', email: 'joe@example.com'}, 'joe@example.com ☛ email: joe@example.com, initials: jo')
+
+  t.end()
 })
 
 test('initials.parse(namesArray)', function (t) {
-  t.plan(1)
-
   t.deepEqual(initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{name: 'John Doe', initials: 'JD'}, {name: 'Robert Roe', initials: 'RR'}, {name: 'Larry Loe', initials: 'LL'}], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL')
+
+  t.end()
 })
 
 test('initials.parse(nameOrNames, {existing: initialsForNames})', function (t) {
-  t.plan(2)
-
   t.deepEqual(initials.parse('John Doe', {
       existing: {
         'John Doe': 'JoDo'
@@ -142,23 +138,25 @@ test('initials.parse(nameOrNames, {existing: initialsForNames})', function (t) {
       }
     }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names')
 
+  t.end()
+
 })
 
 test('initials(), no params', function (t) {
-  t.plan(4)
-
   t.equal(initials(), '', 'initials() without nameOrNames, no initials')
   t.equal(initials.addTo(), '', 'initials.addTo() without nameOrNames, no initials')
   t.deepEqual(initials.parse(), {}, 'initials.parse() without nameOrNames, no initials')
 
   t.deepEqual(initials(['', '']), ['', ''], 'initials with multiple persons but no names')
+
+  t.end()
 })
 
 test('initials(), name.length is less 3', function (t) {
-  t.plan(2)
-
   t.equal(initials('K'), 'K', 'name.length is < 2, so the initials are equal to name')
   t.equal(initials('Mo'), 'Mo', 'name.length is < 3, so the initials are equal to name')
+
+  t.end()
 })
 
 // uncomment the block below to run a single test only
