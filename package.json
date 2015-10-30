@@ -32,9 +32,9 @@
   "homepage": "http://gr2m.github.io/initials",
   "devDependencies": {
     "beefy": "^2.1.5",
-    "browserify": "^11.2.0",
     "bootstrap-editable-table": "github:gr2m/bootstrap-editable-table#gh-pages",
-    "gh-pages-deploy": "^0.3.0",
+    "browserify": "^11.2.0",
+    "gh-pages-deploy": "git+https://github.com/gr2m/gh-pages-deploy.git",
     "istanbul": "^0.3.5",
     "istanbul-coveralls": "^1.0.1",
     "mkdirp": "^0.5.1",
