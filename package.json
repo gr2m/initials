@@ -7,7 +7,6 @@
     "build": "browserify lib/initials.js -s initials -o dist/initials.js",
     "build:demo": "browserify lib/initials.js -s initials -o demo/initials.js",
     "deploy": "npm run build:demo && npm run deploydocs",
-    "postdeploy": "npm run test:coverage && istanbul-coveralls",
     "predeploydocs": "./bin/authorize-push.js",
     "deploydocs": "gh-pages-deploy",
     "test": "standard lib/initials.js test/initials-test.js && npm run -s test:node | tap-spec",
@@ -15,7 +14,7 @@
     "test:node": "node test/initials-test.js",
     "presemantic-release": "npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "postsemantic-release": "npm run deploy"
+    "postsemantic-release": "npm run test:coverage && istanbul-coveralls"
   },
   "gh-pages-deploy": {
     "staticpath": "demo",
