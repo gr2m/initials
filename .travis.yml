@@ -8,7 +8,7 @@ notifications:
 node_js:
   - '4'
 script:
-  - curl -H 'Authorization: token $(echo $GH_TOKEN)' GET https://api.github.com
+  - 'curl -H "Authorization: token $(echo $GH_TOKEN)" GET https://api.github.com'
   - npm run deploy
 branches:
   except:
