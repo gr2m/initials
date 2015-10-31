@@ -11,8 +11,8 @@ if (!(process.env.CI && GH_TOKEN && repo)) {
 }
 
 var commands = [
-  'git remote set-url origin ' + repo.replace('https://', 'https://' + GH_TOKEN + '@') + ' && ',
-  'git config user.email "gregor@martynus.net" && ',
+  'git remote set-url origin ' + repo.replace('https://', 'https://' + GH_TOKEN + '@'),
+  'git config user.email "gregor@martynus.net"',
   'git config user.name "gr2m"'
 ]
 commands.forEach(function (command) {
