@@ -19,4 +19,3 @@ commands.forEach(function (command) {
   console.log('[authorize-push] %s', command.replace(GH_TOKEN, '***GH_TOKEN***'))
   exec(command)
 })
-
