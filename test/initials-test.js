@@ -53,17 +53,16 @@ test('initials(namesArray)', function (t) {
 
 test('initials(nameOrNames, {existing: initialsForNames})', function (t) {
   t.equal(initials('John Doe', {
-      existing: {
-        'John Doe': 'JoDo'
-      }
-    }), 'JoDo', 'respect existing initials'
-  )
+    existing: {
+      'John Doe': 'JoDo'
+    }
+  }), 'JoDo', 'respect existing initials')
 
   t.deepEqual(initials(['John Doe', 'Jane Dane'], {
-      existing: {
-        'John Doe': 'JD'
-      }
-    }), ['JD', 'JDa'], 'respect existing initials')
+    existing: {
+      'John Doe': 'JD'
+    }
+  }), ['JD', 'JDa'], 'respect existing initials')
 
   t.end()
 })
@@ -127,19 +126,18 @@ test('initials.parse(namesArray)', function (t) {
 
 test('initials.parse(nameOrNames, {existing: initialsForNames})', function (t) {
   t.deepEqual(initials.parse('John Doe', {
-      existing: {
-        'John Doe': 'JoDo'
-      }
-    }), {name: 'John Doe', initials: 'JoDo'}, 'respect existing initials for single name')
+    existing: {
+      'John Doe': 'JoDo'
+    }
+  }), {name: 'John Doe', initials: 'JoDo'}, 'respect existing initials for single name')
 
   t.deepEqual(initials.parse(['John Doe', 'Jane Dane'], {
-      existing: {
-        'John Doe': 'JD'
-      }
-    }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names')
+    existing: {
+      'John Doe': 'JD'
+    }
+  }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names')
 
   t.end()
-
 })
 
 test('initials(), no params', function (t) {
