@@ -4,12 +4,13 @@
   "scripts": {
     "start": "npm run build:demo && beefy ./index.js --cwd=./demo",
     "prebuild": "rimraf dist && mkdirp dist",
-    "build": "browserify lib/initials.js -s initials -o dist/initials.js",
-    "build:demo": "browserify lib/initials.js -s initials -o demo/initials.js",
+    "build": "browserify index.js -s initials -o dist/initials.js",
+    "build:demo": "browserify index.js -s initials -o demo/initials.js",
     "deploy": "npm run build:demo && npm run deploydocs",
     "predeploydocs": "./bin/authorize-push.js",
     "deploydocs": "gh-pages-deploy",
-    "test": "standard lib/initials.js test/initials-test.js && npm run -s test:node | tap-spec",
+    "pretest": "standard",
+    "test": "npm run -s test:node | tap-spec",
     "test:coverage": "istanbul cover test/initials-test.js",
     "test:node": "node test/initials-test.js",
     "presemantic-release": "npm run build",
@@ -33,7 +34,6 @@
   "devDependencies": {
     "beefy": "^2.1.5",
     "browserify": "^11.2.0",
-    "bootstrap-editable-table": "github:gr2m/bootstrap-editable-table#gh-pages",
     "gh-pages-deploy": "^0.3.0",
     "istanbul": "^0.3.5",
     "istanbul-coveralls": "^1.0.1",
@@ -43,5 +43,10 @@
     "standard": "^3.11.1",
     "tap-spec": "^3.0.0",
     "tape": "^4.2.0"
+  },
+  "standard": {
+    "ignore": [
+      "demo"
+    ]
   }
 }
