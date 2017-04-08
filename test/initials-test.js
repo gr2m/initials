@@ -16,6 +16,7 @@ test('initials(name)', function (t) {
   t.equal(initials('John Doe <joe@example.com>'), 'JD', 'John Doe <joe@example.com> ☛ JD')
   t.equal(initials('joe@example.com'), 'jo', 'joe@example.com ☛ jo')
   t.equal(initials('John Doe (dj)'), 'dj', 'John Doe (dj) ☛ dj')
+  t.equal(initials('John O\'Doe'), 'JD', 'John O\'Doe ☛ JO')
 
   // https://github.com/gr2m/initials/issues/6
   t.equal(initials('안형준'), '안형', '안형준 -> 안형')
@@ -26,6 +27,7 @@ test('initials(name)', function (t) {
 test('initials(name, 3)', function (t) {
   t.equal(initials('John Doe', 3), 'JDo', 'John Doe ☛ JDo')
   t.equal(initials('John D.', 3), 'JoD', 'John D. ☛ JoD')
+  t.equal(initials('John O\'Doe', 3), 'JOD', 'John O\'Doe ☛ JOD')
 
   t.end()
 })
