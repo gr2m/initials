@@ -1,6 +1,8 @@
 Initials. Because JD is shorter than John Doe
 =============================================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gr2m/initials.svg)](https://greenkeeper.io/)
+
 > extracts initials from and adds initials to names
 
 [![Build Status](https://travis-ci.org/gr2m/initials.svg?branch=master)](https://travis-ci.org/gr2m/initials)
