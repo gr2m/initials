@@ -1,14 +1,11 @@
 Initials. Because JD is shorter than John Doe
 =============================================
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/gr2m/initials.svg)](https://greenkeeper.io/)
-
 > extracts initials from and adds initials to names
 
 [![Build Status](https://travis-ci.org/gr2m/initials.svg?branch=master)](https://travis-ci.org/gr2m/initials)
 [![Coverage Status](https://coveralls.io/repos/gr2m/initials/badge.svg?branch=master)](https://coveralls.io/r/gr2m/initials?branch=master)
-[![Dependency Status](https://david-dm.org/gr2m/initials.svg)](https://david-dm.org/gr2m/initials)
-[![devDependency Status](https://david-dm.org/gr2m/initials/dev-status.svg)](https://david-dm.org/gr2m/initials#info=devDependencies)
+[![Greenkeeper badge](https://badges.greenkeeper.io/gr2m/initials.svg)](https://greenkeeper.io/)
 
 Installation
 ------------
