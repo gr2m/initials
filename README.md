@@ -88,7 +88,7 @@ npm test
 Fine Print
 ----------
 
-initials have been authored by [Gregor Martynus](https://github.com/gr2m),
+initials has been authored by [Gregor Martynus](https://github.com/gr2m),
 proud member of the [Hoodie Community](http://hood.ie/).
 
 License: MIT
