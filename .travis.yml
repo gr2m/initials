@@ -1,19 +1,17 @@
-sudo: false
 language: node_js
 cache:
   directories:
-    - node_modules
+    - ~/.npm
 notifications:
   email: false
 node_js:
+  - '9'
+  - '8'
+  - '6'
   - '4'
-before_install:
-  - npm install --global npm@3
-before_script:
-  - npm prune
 after_success:
-  - npm run semantic-release
-  - if [[ $TRAVIS_BRANCH == 'master' ]]; then npm run deploy; fi
+  - npm install -g travis-deploy-once@4
+  - travis-deploy-once "npm run semantic-release"
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - /^v\d+\.\d+\.\d+$/
