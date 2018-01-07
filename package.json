@@ -14,7 +14,7 @@
     "test:coverage": "istanbul cover test/initials-test.js",
     "test:node": "node test/initials-test.js",
     "presemantic-release": "npm run build",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "postsemantic-release": "npm run test:coverage && istanbul-coveralls"
   },
   "gh-pages-deploy": {
@@ -39,7 +39,7 @@
     "istanbul-coveralls": "^1.0.1",
     "mkdirp": "^0.5.1",
     "rimraf": "^2.4.3",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^11.0.2",
     "standard": "^10.0.3",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0"
@@ -48,5 +48,6 @@
     "ignore": [
       "demo"
     ]
-  }
+  },
+  "version": "0.0.0-development"
 }
