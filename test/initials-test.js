@@ -110,16 +110,16 @@ test('initials.addTo(nameOrNames, {existing: initialsForNames})', function (t) {
 })
 
 test('initials.parse(name)', function (t) {
-  t.deepEqual(initials.parse('John Doe'), {name: 'John Doe', initials: 'JD'}, 'John Doe ☛ name: John Doe, initials: JD')
-  t.deepEqual(initials.parse('JD'), {initials: 'JD'}, 'JD ☛ initials: JD')
-  t.deepEqual(initials.parse('joe@example.com'), {email: 'joe@example.com', initials: 'jo'}, 'joe@example.com ☛ email: joe@example.com, initials: jo')
-  t.deepEqual(initials.parse('John Doe <joe@example.com>'), {name: 'John Doe', initials: 'JD', email: 'joe@example.com'}, 'joe@example.com ☛ email: joe@example.com, initials: jo')
+  t.deepEqual(initials.parse('John Doe'), { name: 'John Doe', initials: 'JD' }, 'John Doe ☛ name: John Doe, initials: JD')
+  t.deepEqual(initials.parse('JD'), { initials: 'JD' }, 'JD ☛ initials: JD')
+  t.deepEqual(initials.parse('joe@example.com'), { email: 'joe@example.com', initials: 'jo' }, 'joe@example.com ☛ email: joe@example.com, initials: jo')
+  t.deepEqual(initials.parse('John Doe <joe@example.com>'), { name: 'John Doe', initials: 'JD', email: 'joe@example.com' }, 'joe@example.com ☛ email: joe@example.com, initials: jo')
 
   t.end()
 })
 
 test('initials.parse(namesArray)', function (t) {
-  t.deepEqual(initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{name: 'John Doe', initials: 'JD'}, {name: 'Robert Roe', initials: 'RR'}, {name: 'Larry Loe', initials: 'LL'}], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL')
+  t.deepEqual(initials.parse(['John Doe', 'Robert Roe', 'Larry Loe']), [{ name: 'John Doe', initials: 'JD' }, { name: 'Robert Roe', initials: 'RR' }, { name: 'Larry Loe', initials: 'LL' }], 'John Doe, Robert Roe, Larry Loe ☛ name: John Doe, initials: JD; name: Robert Roe, initials: RR; name: Larry Loe, initials: LL')
 
   t.end()
 })
@@ -129,13 +129,13 @@ test('initials.parse(nameOrNames, {existing: initialsForNames})', function (t) {
     existing: {
       'John Doe': 'JoDo'
     }
-  }), {name: 'John Doe', initials: 'JoDo'}, 'respect existing initials for single name')
+  }), { name: 'John Doe', initials: 'JoDo' }, 'respect existing initials for single name')
 
   t.deepEqual(initials.parse(['John Doe', 'Jane Dane'], {
     existing: {
       'John Doe': 'JD'
     }
-  }), [{name: 'John Doe', initials: 'JD'}, {name: 'Jane Dane', initials: 'JDa'}], 'respect existing initials  for multiple names')
+  }), [{ name: 'John Doe', initials: 'JD' }, { name: 'Jane Dane', initials: 'JDa' }], 'respect existing initials  for multiple names')
 
   t.end()
 })
