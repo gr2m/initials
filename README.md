@@ -7,8 +7,7 @@ Initials. Because JD is shorter than John Doe
 [![Coverage Status](https://coveralls.io/repos/gr2m/initials/badge.svg?branch=master)](https://coveralls.io/r/gr2m/initials?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/gr2m/initials.svg)](https://greenkeeper.io/)
 
-Installation
-------------
+## Installation
 
 Install using [npm](https://npmjs.org/) for node.js:
 
@@ -17,8 +16,7 @@ npm install --save initials
 ```
 
 
-Usage
------
+## Usage
 
 ```js
 initials('John Doe')
@@ -45,8 +43,7 @@ initials(['John Doe', 'Jane Dane'], {
 // ['JD', 'JDa']
 ```
 
-Notes
------
+## Notes
 
 Preffered initials can be passed in `(JD)`, e.g.
 
@@ -76,18 +73,13 @@ console.log( initials(['John Doe', 'Jane Dane']) );
 // ['JDo', 'JDa']
 ```
 
-Test
-----
+## Test
 
 ```
 npm test
 ```
 
 
-Fine Print
-----------
+## LICENSE
 
-initials has been authored by [Gregor Martynus](https://github.com/gr2m),
-proud member of the [Hoodie Community](http://hood.ie/).
-
-License: MIT
+[MIT](LICENSE)
