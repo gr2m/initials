@@ -46,7 +46,7 @@ test('initials(namesArray)', function (t) {
   t.deepEqual(initials(['j']), ['j'], 'j ☛ j')
 
   // https://github.com/gr2m/initials/issues/14
-  t.deepEqual(initials(['Moe Minutes', 'Moe Min']), ['MoM', 'MMi'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
+  t.deepEqual(initials(['Moe Minutes', 'Moe Min']).sort(), ['MMi', 'MoM'], '["Moe Minutes", "Moe Min"] ☛ ["MoM", "MMi"]')
 
   t.end()
 })
