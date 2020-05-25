@@ -49,5 +49,6 @@
     "ignore": [
       "demo"
     ]
-  }
+  },
+  "types": "./index.d.ts"
 }
