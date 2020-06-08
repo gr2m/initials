@@ -17,5 +17,5 @@ declare module 'initials' {
 
 	export function addTo(name: string): string | undefined;
 
-	export = initials;
+	export default initials;
 }
