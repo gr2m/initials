@@ -13,10 +13,7 @@
     "pretest": "standard",
     "test": "npm run -s test:node | tap-spec",
     "test:coverage": "istanbul cover test/initials-test.js",
-    "test:node": "node test/initials-test.js",
-    "presemantic-release": "npm run build",
-    "semantic-release": "semantic-release",
-    "postsemantic-release": "npm run test:coverage && istanbul-coveralls"
+    "test:node": "node test/initials-test.js"
   },
   "gh-pages-deploy": {
     "staticpath": "demo",
@@ -50,5 +47,21 @@
       "demo"
     ]
   },
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ]
+  }
 }
