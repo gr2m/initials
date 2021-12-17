@@ -9,7 +9,7 @@ declare module 'initials' {
 		}
 	}
 
-	function initials(nameOrNames: NameOrNames, options?: Options): string | string[];
+	function initials<T extends NameOrNames>(nameOrNames: T, options?: Options): T;
 
 	export function find(name: string): string;
 
