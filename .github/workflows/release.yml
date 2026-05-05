@@ -25,6 +25,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: npx semantic-release
+      - run: npx semantic-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
